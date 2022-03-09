@@ -39,7 +39,7 @@
                 <input
                   class="toggle"
                   type="checkbox"
-                  @click="finishedTodo"
+                  @click="finishedTodo(todo.id)"
                   v-model="todo.completed"
                 />
                 <label for="">{{todo.title}}</label>
@@ -109,9 +109,17 @@
             console.log("remove todo", todo.id);
             this.todos = this.todos.filter((_todo) => _todo.id !== todo.id);
           },
-          finishedTodo() {
+          finishedTodo(id) {
             console.log("finish!");
-            console.log(this.todos.completed);
+            console.log(id);
+            this.todos = this.todos.map((todo) => {
+              if (todo.id === id) {
+                todo.completed = !todo.completed;
+                console.log(todo.completed);
+              }
+              return todo;
+            });
+            // console.log(this.todos.completed);
             // console.log(this.todos.completed.value)
             // this.todos.completed = !this.todos.completed
           },
